@@ -22,10 +22,20 @@
   </web-item>
   
   <!-- Menu Item Component (Grouped by Grouping Component) -->
-  <web-item name="Hello World Item" i18n-name-key="hello-world-item.name" key="hello-world-item" section="hello-world-menu/hello-world-section" weight="1000">
-    <description key="hello-world-item.description">The Hello World Plugin</description>
-    <label key="hello-world-item.label"/>
-    <link linkId="hello-world-item-link">https://www.google.pl</link>
+  <web-item name="Hello World Item 1" i18n-name-key="hello-world-item-1.name" key="hello-world-item-1" section="hello-world-menu/hello-world-section" weight="1000">
+    <description key="hello-world-item-1.description">The Hello World Plugin</description>
+    <label key="hello-world-item-1.label"/>
+    <link linkId="hello-world-item-1-link">https://www.google.pl</link>
+  </web-item>
+  <web-item name="Hello World Item 2" i18n-name-key="hello-world-item-2.name" key="hello-world-item-2" section="hello-world-menu/hello-world-section" weight="1000">
+    <description key="hello-world-item-2.description">The Hello World Plugin</description>
+    <label key="hello-world-item-2.label"/>
+    <link linkId="hello-world-item-2-link">http://www.wp.pl</link>
+  </web-item>
+  <web-item name="Hello World Item 3" i18n-name-key="hello-world-item-3.name" key="hello-world-item-3" section="hello-world-menu/hello-world-section" weight="1000">
+    <description key="hello-world-item-3.description">The Hello World Plugin</description>
+    <label key="hello-world-item-3.label"/>
+    <link linkId="hello-world-item-3-link">http://www.a.pl</link>
   </web-item>
   
 </atlassian-plugin>
