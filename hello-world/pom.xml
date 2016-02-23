@@ -9,7 +9,7 @@
         <name>Example Company</name>
         <url>http://www.example.com/</url>
     </organization>
-    <name>hello-world</name>
+    <name>Hello World Plugin</name>
     <description>This is the com.pduleba.jira.plugins:hello-world plugin for Atlassian JIRA.</description>
     <packaging>atlassian-plugin</packaging>
     <dependencies>
@@ -146,6 +146,8 @@
         </plugins>
     </build>
     <properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		
         <jira.version>7.1.0</jira.version>
         <amps.version>6.2.1</amps.version>
         <plugin.testrunner.version>1.2.3</plugin.testrunner.version>

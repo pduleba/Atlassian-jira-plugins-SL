@@ -6,18 +6,26 @@
     <version>${project.version}</version>
     <vendor name="${project.organization.name}" url="${project.organization.url}"/>
   </plugin-info>
+  
   <resource type="i18n" name="i18n" location="com.atlassian.tutorial.hello-world"/>
-  <web-section name="hello-world-section" i18n-name-key="hello-world-section.name" key="hello-world-section" location="client-sites-link" weight="1000">
-    <description key="hello-world-section.description">The hello-world-section Plugin</description>
+  
+  <!-- Menu Item Group Component -->
+  <web-section name="Hello World Section" key="hello-world-section" location="hello-world-menu" weight="1000">
+    <description key="hello-world-section.description">The Hello World Plugin</description>
   </web-section>
+  
+  <!-- Menu Component -->
   <web-item name="Hello World Menu" i18n-name-key="hello-world-menu.name" key="hello-world-menu" section="system.top.navigation.bar" weight="1000">
-    <description key="hello-world-menu.description">The Hello World Menu Description</description>
+    <description key="hello-world-menu.description">The Client Sites Plugin</description>
     <label key="hello-world-menu.label"/>
-    <link linkId="client-sites-link"/>
+    <link linkId="hello-world-menu"/>
   </web-item>
-  <web-item name="Hello World Item" i18n-name-key="hello-world-item.name" key="hello-world-item" section="client-sites-link/hello-world-item" weight="1000">
-    <description key="hello-world-item.description">Hello World Item Description</description>
+  
+  <!-- Menu Item Component (Grouped by Grouping Component) -->
+  <web-item name="Hello World Item" i18n-name-key="hello-world-item.name" key="hello-world-item" section="hello-world-menu/hello-world-section" weight="1000">
+    <description key="hello-world-item.description">The Hello World Plugin</description>
     <label key="hello-world-item.label"/>
     <link linkId="hello-world-item-link">https://www.google.pl</link>
   </web-item>
+  
 </atlassian-plugin>
