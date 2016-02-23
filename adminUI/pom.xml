@@ -159,7 +159,7 @@
     
     <properties>
         <platform.version>3.0.0</platform.version>
-        <refapp.version>3.1.0</refapp.version>
+        <refapp.version>7.1.0</refapp.version>
         <amps.version>6.2.1</amps.version>
         <plugin.testrunner.version>1.2.3</plugin.testrunner.version>
         <atlassian.spring.scanner.version>1.2.6</atlassian.spring.scanner.version>
