@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.company.soft</groupId>
+	<artifactId>mycompany-connector-plugin</artifactId>
+	<version>1.0.0</version>
+
+	<organization>
+		<name>MyCompany</name>
+		<url>http://www.company-soft.com</url>
+	</organization>
+
+	<name>MyCompany Connector Plugin</name>
+	<description>This is the MyCompany internal system connector plugin.</description>
+	<packaging>atlassian-plugin</packaging>
+
+	<properties>
+		<!-- Project Properties -->
+		<java.version>1.8</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss Z</maven.build.timestamp.format>
+
+		<!-- Maven Properties -->
+		<maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
+		<maven-jira-plugin.version>6.2.1</maven-jira-plugin.version>		
+		<atlassian-spring-scanner-maven-plugin.version>1.2.6</atlassian-spring-scanner-maven-plugin.version>
+		
+		<!-- Atlassian -->
+		<atlassian.spring.scanner.version>1.2.6</atlassian.spring.scanner.version>
+		<!-- This key is used to keep the consistency between the key in atlassian-plugin.xml and the key to generate bundle. -->
+		<atlassian.plugin.key>${project.groupId}.${project.artifactId}</atlassian.plugin.key>
+		
+		<!-- Project -->
+		<jira.version>7.0.0</jira.version>
+		<jackson.version>2.6.5</jackson.version>
+		<jackson-annotation.version>2.6.0</jackson-annotation.version>
+		<json-simple.version>1.1.1</json-simple.version>
+		<springframework.version>4.1.6.RELEASE</springframework.version><!-- This dependency is JIRA OSGi runtime related too -->
+		<javax.inject.version>1</javax.inject.version>
+		<com.google.common.version>18.0.0</com.google.common.version>
+		<javax.xml.bind.version>2.1.0</javax.xml.bind.version>
+		<javax.xml.stream.version>1.0.0</javax.xml.stream.version>
+		<junit.version>4.12</junit.version>
+		<lombok.version>1.16.6</lombok.version>
+		<mockito.version>1.10.19</mockito.version>
+		<org.osgi.framework.version>1.7.0</org.osgi.framework.version>
+		<org.osgi.util.version>1.5.1</org.osgi.util.version>
+		<slf4j.version>1.7.9</slf4j.version>
+		<commons-logging.version>1.1.1</commons-logging.version>
+		<org.apache.commons.lang.version>1.23.0</org.apache.commons.lang.version>
+		
+		<!-- Tests -->
+		<atlassian-plugins-osgi-testrunner.version>1.2.3</atlassian-plugins-osgi-testrunner.version>
+		<testkit.version>6.3.11</testkit.version><!-- TestKit version 6.x for JIRA 6.x -->
+		<jsr311-api.version>1.1.1</jsr311-api.version>
+		<gson.version>2.2.2-atlassian-1</gson.version>
+	</properties>
+
+	<build>
+		<!-- Build Configuartion -->
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.atlassian.maven.plugins</groupId>
+				<artifactId>maven-jira-plugin</artifactId>
+				<version>${maven-jira-plugin.version}</version>
+				<extensions>true</extensions>
+				<configuration>
+					<productVersion>${jira.version}</productVersion>
+					<productDataVersion>${jira.version}</productDataVersion>
+					<log4jProperties>src/main/resources/log4j.properties</log4jProperties>
+					<extractDependencies>false</extractDependencies>
+					<!-- Uncomment to install TestKit backdoor in JIRA. -->
+					<!--
+					<pluginArtifacts>
+						<pluginArtifact>
+							<groupId>com.atlassian.jira.tests</groupId>
+							<artifactId>jira-testkit-plugin</artifactId>
+							<version>${testkit.version}</version>
+						</pluginArtifact>
+					</pluginArtifacts>
+					-->
+					<enableQuickReload>true</enableQuickReload>
+					<enableFastdev>false</enableFastdev>
+					<instructions>
+						<Atlassian-Plugin-Key>${atlassian.plugin.key}</Atlassian-Plugin-Key>
+
+						<Built-Date>${maven.build.timestamp}</Built-Date>
+						
+						<Bundle-SymbolicName>${atlassian.plugin.key}</Bundle-SymbolicName>
+						<Bundle-Version>${project.version}</Bundle-Version>
+						<Bundle-Name>${project.name}</Bundle-Name>
+						<Bundle-Description>${project.description}</Bundle-Description>
+						<Bundle-License>${project.licenses}</Bundle-License>
+						<Bundle-Vendor>${project.organization.name}</Bundle-Vendor>
+						<Bundle-DocURL>${project.organization.url}</Bundle-DocURL>
+
+						<!-- Private Bundle packages only -->
+						<Private-Package>
+							com.company.soft.mycompany.connector.impl;version="${project.version}"
+						</Private-Package>
+
+						<!-- Add package import here -->
+						<Import-Package>
+							<!-- "0.0.0" means any version -->
+							org.springframework.osgi.*;version="0.0.0";resolution:="optional",
+							org.eclipse.gemini.blueprint.*;version="0.0.0";resolution:="optional",
+							org.osgi.framework;version="${org.osgi.framework.version}",
+							org.osgi.util.tracker;version="${org.osgi.util.version}",
+							org.springframework.*;version="${springframework.version}",
+							com.atlassian.*;version="0.0.0",
+							org.w3c.dom;version="0.0.0",
+							com.google.common.*;version="${com.google.common.version}",
+							org.apache.commons.lang;version="${org.apache.commons.lang.version}",
+							javax.xml.transform;version="0.0.0",
+							javax.xml.parsers;version="0.0.0",
+							javax.xml.datatype;version="0.0.0",
+							javax.xml.bind;version="${javax.xml.bind.version}",
+							javax.xml.bind.annotation;version="${javax.xml.bind.version}",
+							javax.xml.stream;version="${javax.xml.stream.version}",
+							org.xml.sax;version="0.0.0",
+							<!-- Logging -->
+							org.slf4j*;version="${slf4j.version}",
+							org.apache.commons.logging*;version="${commons-logging.version}"
+						</Import-Package>
+						<Export-Package>
+							com.company.soft.mycompany.connector.api;version="${project.version}",
+							com.company.soft.mycompany.connector.dto;version="${project.version}"
+						</Export-Package>
+
+						<!-- Ensure plugin is spring powered - see https://extranet.atlassian.com/x/xBS9hQ  -->
+						<Spring-Context>*</Spring-Context>
+					</instructions>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>com.atlassian.plugin</groupId>
+				<artifactId>atlassian-spring-scanner-maven-plugin</artifactId>
+				<version>${atlassian-spring-scanner-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>atlassian-spring-scanner</goal>
+						</goals>
+						<phase>process-classes</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<scannedDependencies>
+						<dependency>
+							<groupId>com.atlassian.plugin</groupId>
+							<artifactId>atlassian-spring-scanner-external-jar</artifactId>
+						</dependency>
+					</scannedDependencies>
+					<verbose>false</verbose>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+	
+		<!-- JIRA API & IMPL -->
+		<dependency>
+			<groupId>com.atlassian.jira</groupId>
+			<artifactId>jira-api</artifactId>
+			<version>${jira.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- Add dependency on jira-core if you want access to JIRA implementation classes as well as the sanctioned API. -->
+		<!-- This is not normally recommended, but may be required eg when migrating a plugin originally developed against JIRA 4.x -->
+		<!--
+		<dependency>
+			<groupId>com.atlassian.jira</groupId>
+			<artifactId>jira-core</artifactId>
+			<version>${jira.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		-->
+
+		<!-- REST API -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>${jackson-annotation.version}</version>
+		</dependency>
+
+		<!-- Spring Framework -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${springframework.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${springframework.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Atlassian Spring Scanner -->
+		<dependency>
+			<groupId>com.atlassian.plugin</groupId>
+			<artifactId>atlassian-spring-scanner-annotation</artifactId>
+			<version>${atlassian.spring.scanner.version}</version>
+			<scope>compile</scope><!-- Not yet available on JIRA OSGi System bundle - has to be compiled in -->
+		</dependency>
+		<dependency>
+			<groupId>com.atlassian.plugin</groupId>
+			<artifactId>atlassian-spring-scanner-runtime</artifactId>
+			<version>${atlassian.spring.scanner.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>${javax.inject.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${springframework.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+			<!-- Utility dependencies -->	
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>${lombok.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.googlecode.json-simple</groupId>
+				<artifactId>json-simple</artifactId>
+				<version>${json-simple.version}</version>
+		  	</dependency>
+			
+			<!-- Testing -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-all</artifactId>
+				<version>${mockito.version}</version>
+				<scope>test</scope>
+			</dependency>
+			
+			<!-- Logging -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>${slf4j.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+				<version>${commons-logging.version}</version>
+				<scope>provided</scope>
+			</dependency>
+
+		
+		<!-- JIRA Integration Testing -->
+		<dependency>
+			<groupId>com.atlassian.plugins</groupId>
+			<artifactId>atlassian-plugins-osgi-testrunner</artifactId>
+			<version>${atlassian-plugins-osgi-testrunner.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>jsr311-api</artifactId>
+			<version>${jsr311-api.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>${gson.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Uncomment to use TestKit in your project. Details at https://bitbucket.org/atlassian/jira-testkit -->
+		<!-- You can read more about TestKit at https://developer.atlassian.com/display/JIRADEV/Plugin+Tutorial+-+Smarter+integration+testing+with+TestKit -->
+		<!--
+		<dependency>
+			<groupId>com.atlassian.jira.tests</groupId>
+			<artifactId>jira-testkit-client</artifactId>
+			<version>${testkit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		-->
+	</dependencies>
+</project>
