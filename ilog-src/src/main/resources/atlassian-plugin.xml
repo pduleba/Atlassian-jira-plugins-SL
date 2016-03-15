@@ -1,0 +1,18 @@
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+        <param name="plugin-icon">images/clock.png</param>
+        <param name="plugin-logo">images/mylogo.jpeg</param>
+    	
+    </plugin-info>
+
+    <web-panel name="ilog" i18n-name-key="ilog" key="ilog" location="atl.jira.view.issue.right.context" weight="1000">
+    	<description key="ilog">The Individual Worklog plugin displays logged work of each user on a particular issue</description>
+    	<context-provider class="com.mizan.ILog"/>
+    	<resource name="view" type="velocity" location="ilog.vm"/>
+    	<label key="Individual Worklog"/>
+    </web-panel>
+    
+</atlassian-plugin>

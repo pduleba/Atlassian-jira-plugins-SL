@@ -1,0 +1,25 @@
+
+#if($realMap && $hasPermission)
+<span style="font-weight; color: grey;">
+   <table>
+      
+
+#set ($keys =$realMap.keySet())
+#foreach($key in $keys)
+	<tr><td id="user" width="80%">$key</td> 
+	#set($timeMap=$realMap.get($key))
+	#set ($times =$timeMap.keySet())
+	#foreach($hours in $times)
+		#set($minutes=$timeMap.get($hours))
+			#if($hours!=0)
+				<td id="hours" style="font-weight; color:#000066;><font face="HELVETICA">${hours}h</font></td>
+			#end
+			#if($minutes!=0)
+				<td id="min" style="font-weight; color:#000066;><font face="HELVETICA">${minutes}m</font></td>
+			#end	
+	#end
+	</tr>
+#end
+
+   </table>
+#end
