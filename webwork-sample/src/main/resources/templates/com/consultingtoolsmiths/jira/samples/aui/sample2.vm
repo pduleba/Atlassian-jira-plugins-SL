@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>Sample 2 Success</title>
+  </head>
+  
+  <body>
+
+    <h3>Sample 2 Success</h3>
+
+    <p>
+      This page shows the Javascript sample from <a href="http://confluence.atlassian.com/display/AUI/Getting+Started+with+AUI">Getting Started with AUI</a>. This velocity template file just contains a div with an id that can be populated by the AUI Javascript. In this case the Javascript is embedded directly in the template file.
+    </p>
+
+    <script type="text/javascript">
+      AJS.dropDown.Standard({
+      trigger: ".gadget .aui-dd-trigger",
+      dropDown: ".gadget .aui-dropdown",
+      selectionHandler: function() {
+      this.hide();
+      },
+      align: "right"
+      });
+    </script>
+
+  </body>
+</html>

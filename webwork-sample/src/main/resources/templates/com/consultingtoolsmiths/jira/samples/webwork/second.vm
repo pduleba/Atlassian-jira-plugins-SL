@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <title>Action Beta</title>
+  </head>
+  
+  <body>
+
+    <div style="background: #FFFFFF">
+      <table class="jiraform maxWidth">
+        <tr>
+          <td class="jiraformheader">
+            <h3 class="formtitle">Action Beta</h3>
+          </td>
+        </tr>
+        <tr>
+          <td class="jiraformbody">
+          This page is what the Action Beta action class shows
+          </td>
+        </tr>   
+
+      </table>  
+      <br>      
+
+  </body>
+</html>

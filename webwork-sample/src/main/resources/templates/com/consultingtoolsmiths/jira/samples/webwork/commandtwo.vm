@@ -1,0 +1,11 @@
+<p>
+This page demonstrates using internationalization (i18n) resources in a template.
+</p>
+
+<p>
+Text that is fixed in the template: Hello World
+</p>
+
+<p>
+Text from a properties file: ${i18n.getText("com.consultingtoolsmiths.jira.samples.webwork.example_text1")}
+</p>
