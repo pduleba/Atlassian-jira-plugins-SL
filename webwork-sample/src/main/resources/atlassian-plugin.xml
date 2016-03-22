@@ -53,6 +53,12 @@
 				</command>
 			</action>
 
+
+			<action name="com.consultingtoolsmiths.jira.samples.webwork.MessageAction" alias="MessageAction">
+				<command name="message" alias="MessageCommand">
+					<view name="success">/templates/com/consultingtoolsmiths/jira/samples/message/message.vm</view>
+				</command>
+			</action>
 		</actions>
 	</webwork1>
 
@@ -61,6 +67,16 @@
 		<description>The Samples section in the Admin menu</description>
 		<label key="com.consultingtoolsmiths.jira.samples.webwork.section.label" />
 	</web-section>
+
+	<web-item key="maid1" name="Message Action Link 1" section="system.admin/ct-samples-section" weight="10">
+		<label key="com.consultingtoolsmiths.jira.samples.webwork.message.action.label.1" />
+		<link>/secure/MessageAction!message.jspa</link>
+	</web-item>
+
+	<web-item key="maid2" name="Message Action Link 2" section="system.admin/ct-samples-section" weight="10">
+		<label key="com.consultingtoolsmiths.jira.samples.webwork.message.action.label.2" />
+		<link>/secure/MessageCommand!message.jspa</link>
+	</web-item>
 
 	<!-- Links in the new Samples section to use the first action -->
 	<web-item key="uid1" name="A New Action Link" section="system.admin/ct-samples-section" weight="10">
