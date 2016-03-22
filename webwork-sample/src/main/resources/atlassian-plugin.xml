@@ -15,14 +15,9 @@
 		<!-- Note that HTML in the description element is ignored -->
 		<description>
 			These actions do not exist in JIRA until they were defined here.
-
-			The "actions" element in a webwork1 plugin can have multiple
-			"action" elements.
-
+			The "actions" element in a webwork1 plugin can have multiple "action" elements.
 			An "action" element can have "view" elements and "command" elements.
-
 			"command" elements can have "view" elements.
-
 			See actions.xml in the JIRA source for more examples.
 		</description>
 
@@ -32,31 +27,29 @@
 		<actions>
 			<!-- When FirstNewAction.jspa is used in a URL the class that is named 
 				here (ActionAlpha) will be called. -->
-			<action name="com.consultingtoolsmiths.jira.samples.webwork.ActionAlpha"
-				alias="FirstNewAction">
-				<view name="success">/templates/com/consultingtoolsmiths/jira/samples/webwork/success.vm </view>
-				<view name="error">/templates/com/consultingtoolsmiths/jira/samples/webwork/error.vm </view>
-				<view name="input">/templates/com/consultingtoolsmiths/jira/samples/webwork/input.vm </view>
+			<action name="com.consultingtoolsmiths.jira.samples.webwork.ActionAlpha" alias="FirstNewAction">
+				<view name="success">/templates/com/consultingtoolsmiths/jira/samples/webwork/success.vm</view>
+				<view name="error">/templates/com/consultingtoolsmiths/jira/samples/webwork/error.vm</view>
+				<view name="input">/templates/com/consultingtoolsmiths/jira/samples/webwork/input.vm</view>
 			</action>
 
 			<!-- This action uses its own commands -->
-			<action name="com.consultingtoolsmiths.jira.samples.webwork.ActionBeta"
-				alias="SecondNewAction">
+			<action name="com.consultingtoolsmiths.jira.samples.webwork.ActionBeta" alias="SecondNewAction">
 				<!-- Note that if an action has no views at all, then it fails -->
-				<view name="success">/templates/com/consultingtoolsmiths/jira/samples/webwork/second.vm </view>
+				<view name="success">/templates/com/consultingtoolsmiths/jira/samples/webwork/second.vm</view>
 
 				<command name="mycommand" alias="CommandOne">
-					<view name="success">/templates/com/consultingtoolsmiths/jira/samples/webwork/commandone.vm </view>
+					<view name="success">/templates/com/consultingtoolsmiths/jira/samples/webwork/commandone.vm</view>
 				</command>
 
 				<!-- This command reuses the same Action method as CommandOne -->
 				<command name="mycommand" alias="CommandTwo">
-					<view name="success">/templates/com/consultingtoolsmiths/jira/samples/webwork/commandtwo.vm </view>
+					<view name="success">/templates/com/consultingtoolsmiths/jira/samples/webwork/commandtwo.vm</view>
 				</command>
 
 				<command name="nonstandardview" alias="CommandThree">
-					<view name="foobar">/templates/com/consultingtoolsmiths/jira/samples/webwork/foobar.vm </view>
-					<view name="error">/templates/com/consultingtoolsmiths/jira/samples/webwork/error.vm </view>
+					<view name="foobar">/templates/com/consultingtoolsmiths/jira/samples/webwork/foobar.vm</view>
+					<view name="error">/templates/com/consultingtoolsmiths/jira/samples/webwork/error.vm</view>
 				</command>
 			</action>
 
@@ -74,8 +67,7 @@
 		<description>This is a link to a new Action</description>
 		<!-- The label for the link is defined in the i18n properties file -->
 		<label key="com.consultingtoolsmiths.jira.samples.webwork.label1" />
-		<!-- The name of the jspa here is the alias of the action below. The linkId 
-			is optional -->
+		<!-- The name of the jspa here is the alias of the action below. The linkId is optional -->
 		<link linkId="com.consultingtoolsmiths.jira.samples.ww1">/secure/FirstNewAction.jspa</link>
 	</web-item>
 
@@ -143,11 +135,8 @@
 
 	<webwork1 key="anexistingaction" name="An existing action" class="java.lang.Object" roles-required="admin">
 		<description>
-			WARNING: this module changes the
-			appearance or behavior of the Announcement Banner screen. To
-			return to the previous behavior, disable this module and
-			restart JIRA, or remove the webwork sample plugin and restart
-			JIRA.
+			WARNING: this module changes the appearance or behavior of the Announcement Banner screen. To return to the previous 
+			behavior, disable this module and restart JIRA, or remove the webwork sample plugin and restart JIRA.
 
 			This action already exists but this plugin will override it.
 
@@ -210,16 +199,11 @@
 	<webwork1 key="auisampleactions" name="AUI Sample actions" class="java.lang.Object">
 		<actions>
 			<action name="com.consultingtoolsmiths.jira.samples.aui.AUISampleAction" alias="AUISampleAction">
-				<view name="success">/templates/com/consultingtoolsmiths/jira/samples/webwork/success.vm </view>
+				<view name="success">/templates/com/consultingtoolsmiths/jira/samples/webwork/success.vm</view>
 
 				<command name="sample1" alias="AUISampleOne">
-					<view name="success">/templates/com/consultingtoolsmiths/jira/samples/aui/sample1.vm </view>
+					<view name="success">/templates/com/consultingtoolsmiths/jira/samples/aui/sample1.vm</view>
 				</command>
-
-				<command name="sample1" alias="AUISampleOne">
-					<view name="success">/templates/com/consultingtoolsmiths/jira/samples/aui/sample1.vm </view>
-				</command>
-
 			</action>
 		</actions>
 	</webwork1>
