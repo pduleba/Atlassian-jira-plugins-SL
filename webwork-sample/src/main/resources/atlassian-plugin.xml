@@ -1,4 +1,5 @@
 <atlassian-plugin key="${project.groupId}.webwork" name="Webwork Sample" plugins-version="2">
+
 	<plugin-info>
 		<description>${project.description}</description>
 		<version>${project.version}</version>
@@ -6,222 +7,57 @@
 		<application-version min="3.11" max="4.1" />
 	</plugin-info>
 
-	<!-- The mypluginstrings. properties file provides strings for use in this 
-		file. For strings in your templates, see the CommandTwo sample. -->
-	<resource name="common-18n" type="i18n" location="com.consultingtoolsmiths.jira.samples.mypluginstrings" />
+	<resource name="common-18n" type="i18n" location="com.pduleba.jira.action.config" />
 
-	<!-- The webwork1 plugin element is how you add new actions to JIRA -->
-	<webwork1 key="newactions" name="New actions" class="java.lang.Object">
-		<!-- Note that HTML in the description element is ignored -->
-		<description>
-			These actions do not exist in JIRA until they were defined here.
-			The "actions" element in a webwork1 plugin can have multiple "action" elements.
-			An "action" element can have "view" elements and "command" elements.
-			"command" elements can have "view" elements.
-			See actions.xml in the JIRA source for more examples.
-		</description>
-
-		<!-- These actions are using velocity templates since they can be packaged 
-			and deployed with the plugin. Note that the name of each template file has 
-			to be unique across all plugins, not just this one. -->
+	<webwork1 key="pduleba-actions" name="PDuleba Actions" class="java.lang.Object">
+		<description>Custom actions</description>
 		<actions>
-			<!-- When FirstNewAction.jspa is used in a URL the class that is named 
-				here (ActionAlpha) will be called. -->
-			<action name="com.consultingtoolsmiths.jira.samples.webwork.ActionAlpha" alias="FirstNewAction">
-				<view name="success">/templates/com/consultingtoolsmiths/jira/samples/webwork/success.vm</view>
-				<view name="error">/templates/com/consultingtoolsmiths/jira/samples/webwork/error.vm</view>
-				<view name="input">/templates/com/consultingtoolsmiths/jira/samples/webwork/input.vm</view>
-			</action>
-
-			<!-- This action uses its own commands -->
-			<action name="com.consultingtoolsmiths.jira.samples.webwork.ActionBeta" alias="SecondNewAction">
-				<!-- Note that if an action has no views at all, then it fails -->
-				<view name="success">/templates/com/consultingtoolsmiths/jira/samples/webwork/second.vm</view>
-
-				<command name="mycommand" alias="CommandOne">
-					<view name="success">/templates/com/consultingtoolsmiths/jira/samples/webwork/commandone.vm</view>
-				</command>
-
-				<!-- This command reuses the same Action method as CommandOne -->
-				<command name="mycommand" alias="CommandTwo">
-					<view name="success">/templates/com/consultingtoolsmiths/jira/samples/webwork/commandtwo.vm</view>
-				</command>
-
-				<command name="nonstandardview" alias="CommandThree">
-					<view name="foobar">/templates/com/consultingtoolsmiths/jira/samples/webwork/foobar.vm</view>
-					<view name="error">/templates/com/consultingtoolsmiths/jira/samples/webwork/error.vm</view>
-				</command>
-			</action>
-
-
-			<action name="com.consultingtoolsmiths.jira.samples.webwork.MessageAction" alias="MessageAction">
+			<action name="com.pduleba.jira.action.MessageAction" alias="MessageAction">
 				<command name="message" alias="MessageCommand">
-					<view name="success">/templates/com/consultingtoolsmiths/jira/samples/message/message.vm</view>
+					<view name="success">/templates/message/message.vm</view>
 				</command>
 			</action>
 		</actions>
 	</webwork1>
 
-	<!-- A new section named "Samples" in the Admin menu -->
 	<web-section key="ct-samples-section" name="Samples" location="system.admin" weight="110">
 		<description>The Samples section in the Admin menu</description>
-		<label key="com.consultingtoolsmiths.jira.samples.webwork.section.label" />
+		<label key="com.pduleba.jira.action.message.section.label" />
 	</web-section>
 
-	<web-item key="maid1" name="Message Action Link 1" section="system.admin/ct-samples-section" weight="10">
-		<label key="com.consultingtoolsmiths.jira.samples.webwork.message.action.label.1" />
+	<web-item key="maId1" name="Message Action 1" section="system.admin/ct-samples-section" weight="10">
+		<label key="com.pduleba.jira.action.message.action.label.1" />
 		<link>/secure/MessageAction!message.jspa</link>
 	</web-item>
 
-	<web-item key="maid2" name="Message Action Link 2" section="system.admin/ct-samples-section" weight="10">
-		<label key="com.consultingtoolsmiths.jira.samples.webwork.message.action.label.2" />
+	<web-item key="maId2" name="Message Action 2" section="system.admin/ct-samples-section" weight="10">
+		<label key="com.pduleba.jira.action.message.action.label.2" />
 		<link>/secure/MessageCommand!message.jspa</link>
 	</web-item>
 
-	<!-- Links in the new Samples section to use the first action -->
-	<web-item key="uid1" name="A New Action Link" section="system.admin/ct-samples-section" weight="10">
-		<description>This is a link to a new Action</description>
-		<!-- The label for the link is defined in the i18n properties file -->
-		<label key="com.consultingtoolsmiths.jira.samples.webwork.label1" />
-		<!-- The name of the jspa here is the alias of the action below. The linkId is optional -->
-		<link linkId="com.consultingtoolsmiths.jira.samples.ww1">/secure/FirstNewAction.jspa</link>
-	</web-item>
-
-	<web-item key="uid2" name="Action Link 2" section="system.admin/ct-samples-section" weight="10">
-		<label key="com.consultingtoolsmiths.jira.samples.webwork.label2" />
-		<link>/secure/FirstNewAction!default.jspa</link>
-	</web-item>
-
-	<web-item key="uid3" name="Action Link 3" section="system.admin/ct-samples-section" weight="10">
-		<label key="com.consultingtoolsmiths.jira.samples.webwork.label3" />
-		<!-- Note how the URL has to be escaped to be a valid XML string -->
-		<link>/secure/FirstNewAction!default.jspa?myfirstparameter=some%20text&amp;param2=foopy</link>
-	</web-item>
-
-	<web-item key="uid4" name="Action Link 4" section="system.admin/ct-samples-section" weight="10">
-		<label key="com.consultingtoolsmiths.jira.samples.webwork.label4" />
-		<link>/secure/FirstNewAction!default.jspa?myfirstparameter=bob</link>
-	</web-item>
-
-	<web-item key="uid5" name="Action Link 5" section="system.admin/ct-samples-section" weight="10">
-		<label key="com.consultingtoolsmiths.jira.samples.webwork.label5" />
-		<link>/secure/FirstNewAction.jspa?myfirstparameter=bob</link>
-	</web-item>
-
-	<!-- Links in the Admin Samples section to use the second new action -->
-	<web-item key="uid10" name="Action Link 10" section="system.admin/ct-samples-section" weight="10">
-		<description>This is link to another new action</description>
-		<label key="com.consultingtoolsmiths.jira.samples.webwork.label10" />
-		<link linkId="com.consultingtoolsmiths.jira.samples.ww10">/secure/SecondNewAction.jspa</link>
-	</web-item>
-
-	<web-item key="uid11" name="Action Link 11" section="system.admin/ct-samples-section" weight="10">
-		<label key="com.consultingtoolsmiths.jira.samples.webwork.label11" />
-		<link>/secure/SecondNewAction!myfunction.jspa</link>
-	</web-item>
-
-	<web-item key="uid12" name="Action Link 12" section="system.admin/ct-samples-section" weight="10">
-		<label key="com.consultingtoolsmiths.jira.samples.webwork.label12" />
-		<link>/secure/CommandOne.jspa</link>
-	</web-item>
-
-	<web-item key="uid13" name="Action Link 13" section="system.admin/ct-samples-section" weight="10">
-		<label key="com.consultingtoolsmiths.jira.samples.webwork.label13" />
-		<link>/secure/CommandTwo.jspa</link>
-	</web-item>
-
-	<web-item key="uid14" name="Action Link 14" section="system.admin/ct-samples-section" weight="10">
-		<label key="com.consultingtoolsmiths.jira.samples.webwork.label14" />
-		<link>/secure/CommandThree.jspa</link>
-	</web-item>
-
-	<web-item key="uid15" name="Action Link 15" section="system.admin/ct-samples-section" weight="10">
-		<label key="com.consultingtoolsmiths.jira.samples.webwork.label15" />
-		<link>/secure/SecondNewAction!sampleRedirect.jspa</link>
-	</web-item>
-
-	<web-item key="uid16" name="Action Link 16" section="system.admin/ct-samples-section" weight="10">
-		<label key="com.consultingtoolsmiths.jira.samples.webwork.label16" />
-		<link>/secure/SecondNewAction!sampleAnotherRedirect.jspa</link>
-	</web-item>
-
-
-	<!-- You can set a module to be disabled by default using state="disabled", 
-		but the changes for an action alias need a restart of JIRA anyway. -->
-
 	<webwork1 key="anexistingaction" name="An existing action" class="java.lang.Object" roles-required="admin">
-		<description>
-			WARNING: this module changes the appearance or behavior of the Announcement Banner screen. To return to the previous 
-			behavior, disable this module and restart JIRA, or remove the webwork sample plugin and restart JIRA.
-
-			This action already exists but this plugin will override it.
-
-			Note the roles-required attribute that makes this action only usable
-			by jira admins. Removing it makes the action usable by all users.
-		</description>
-
-		<!-- These actions are using JSP templates since these are what is mostly 
-			used in JIRA. Changes to these .jsp files or new .jsp files have to be deployed 
-			as an extra step after installing the plugin. -->
+		<description>Custom notifications</description>
 		<actions>
-			<!-- Make an existing alias refer to the same template but use a different 
-				class with different behavior. Note the package name is now "custom" instead 
-				of "admin". The package is still in the com.atlassian hierarchy because the 
-				i18n properties are found using that. This all assumes that the previously 
-				used class name is not hardcoded in the jsp files and is only referred to 
-				by its .jspa alias. -->
-			<action name="custom.EditAnnouncementBanner" alias="EditAnnouncementBanner">
+			<action name="com.pduleba.jira.action.BannerAction" alias="BannerAction">
 				<view name="input">/secure/admin/jira/views/editannouncement.jsp</view>
 			</action>
 
-			<!-- Make the existing alias refer to a new template but use the original 
-				class. This can also be done by just modifying the local copy of the jsp 
-				file directly, but this way avoids changing the installed file. -->
-			<!-- <action name="admin.EditAnnouncementBanner" alias="EditAnnouncementBanner"> 
-				<view name="input">/secure/custom/com/consultingtoolsmiths/jira/samples/webwork/modifiededitannouncement.jsp</view> 
-				</action> -->
-
-		</actions>
-
-	</webwork1>
-
-	<!-- Links in the Admin Samples section to use the overridden existing action -->
-	<web-item key="uid20" name="An Existing Action Link" section="system.admin/ct-samples-section" weight="10">
-		<description>This is link to an existing action that has been overridden</description>
-		<label key="com.consultingtoolsmiths.jira.samples.webwork.label20" />
-		<link linkId="com.consultingtoolsmiths.jira.samples.ww20">/secure/admin/EditAnnouncementBanner!default.jspa</link>
-	</web-item>
-
-
-	<!-- Elements below here are for AUI samples, not Webwork -->
-
-	<!-- A new section named "AUI Samples" in the Admin menu -->
-	<web-section key="ct-auisamples-section" name="AUI Samples" location="system.admin" weight="111">
-		<description>The AUI Samples section in the Admin menu</description>
-		<label key="com.consultingtoolsmiths.jira.auisamples.webwork.section.label" />
-	</web-section>
-
-	<!-- Links in the new AUI Samples section -->
-	<web-item key="aui-uid1" name="AUI link 1" section="system.admin/ct-auisamples-section" weight="10">
-		<label key="com.consultingtoolsmiths.jira.auisamples.webwork.label1" />
-		<link>/secure/AUISampleOne.jspa</link>
-	</web-item>
-
-	<web-item key="aui-uid2" name="AUI link 2" section="system.admin/ct-auisamples-section" weight="10">
-		<label key="com.consultingtoolsmiths.jira.auisamples.webwork.label2" />
-		<link>/secure/AUISampleTwo.jspa</link>
-	</web-item>
-
-	<webwork1 key="auisampleactions" name="AUI Sample actions" class="java.lang.Object">
-		<actions>
-			<action name="com.consultingtoolsmiths.jira.samples.aui.AUISampleAction" alias="AUISampleAction">
-				<view name="success">/templates/com/consultingtoolsmiths/jira/samples/webwork/success.vm</view>
-
-				<command name="sample1" alias="AUISampleOne">
-					<view name="success">/templates/com/consultingtoolsmiths/jira/samples/aui/sample1.vm</view>
-				</command>
+			<action name="com.pduleba.jira.action.BannerAction" alias="ModifiedBannerAction"> 
+				<view name="input">/secure/admin/jira/views/modifiededitannouncement.jsp</view> 
 			</action>
 		</actions>
 	</webwork1>
+
+	<web-item key="naId1" name="Notification Action 1" section="system.admin/ct-samples-section" weight="10">
+		<label key="com.pduleba.jira.action.notification.action.label.1" />
+		<link linkId="notification.action.1">/secure/admin/BannerAction!default.jspa</link>
+	</web-item>
+
+	<web-item key="naId2" name="Notification Action 1" section="system.admin/ct-samples-section" weight="10">
+		<label key="com.pduleba.jira.action.notification.action.label.2" />
+		<link linkId="notification.action.2">/secure/admin/ModifiedBannerAction!default.jspa</link>
+	</web-item>
+
+
 
 </atlassian-plugin>

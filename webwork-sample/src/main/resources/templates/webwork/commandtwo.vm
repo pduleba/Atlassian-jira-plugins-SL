@@ -7,5 +7,5 @@ Text that is fixed in the template: Hello World
 </p>
 
 <p>
-Text from a properties file: ${i18n.getText("com.consultingtoolsmiths.jira.samples.webwork.example_text1")}
+Text from a properties file: ${i18n.getText("com.pduleba.jira.view.message")}
 </p>
