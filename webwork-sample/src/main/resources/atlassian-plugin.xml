@@ -9,16 +9,18 @@
 
 	<resource name="common-18n" type="i18n" location="com.pduleba.jira.action.config" />
 
-	<webwork1 key="pduleba-actions" name="PDuleba Actions" class="java.lang.Object">
+	<webwork1 key="pduleba-actions" name="PDuleba Actions">
 		<description>Custom actions</description>
 		<actions>
-			<action name="com.pduleba.jira.action.MessageAction" alias="MessageAction">
-				<command name="message" alias="MessageCommand">
-					<view name="success">/templates/message/message.vm</view>
-				</command>
-			</action>
+		    <action name="com.pduleba.jira.action.ExtendedCreateWorklog" alias="CreateWorklog">
+		        <view name="error">/secure/views/issue/logwork.jsp</view>
+		        <view name="input">/secure/views/issue/logwork.jsp</view>
+		        <view name="securitybreach">/secure/views/securitybreach.jsp</view>
+		    </action>
 		</actions>
 	</webwork1>
+	
+	<component-import key="jiraDurationUtils" interface="com.atlassian.jira.util.JiraDurationUtils" />
 
 	<web-section key="ct-samples-section" name="Samples" location="system.admin" weight="110">
 		<description>The Samples section in the Admin menu</description>
@@ -27,37 +29,8 @@
 
 	<web-item key="maId1" name="Message Action 1" section="system.admin/ct-samples-section" weight="10">
 		<label key="com.pduleba.jira.action.message.action.label.1" />
-		<link>/secure/MessageAction!message.jspa</link>
+		<link>/secure/CreateWorklog.jspa</link>
 	</web-item>
-
-	<web-item key="maId2" name="Message Action 2" section="system.admin/ct-samples-section" weight="10">
-		<label key="com.pduleba.jira.action.message.action.label.2" />
-		<link>/secure/MessageCommand!message.jspa</link>
-	</web-item>
-
-	<webwork1 key="anexistingaction" name="An existing action" class="java.lang.Object" roles-required="admin">
-		<description>Custom notifications</description>
-		<actions>
-			<action name="com.pduleba.jira.action.BannerAction" alias="BannerAction">
-				<view name="input">/secure/admin/jira/views/editannouncement.jsp</view>
-			</action>
-
-			<action name="com.pduleba.jira.action.BannerAction" alias="ModifiedBannerAction"> 
-				<view name="input">/secure/admin/jira/views/modifiededitannouncement.jsp</view> 
-			</action>
-		</actions>
-	</webwork1>
-
-	<web-item key="naId1" name="Notification Action 1" section="system.admin/ct-samples-section" weight="10">
-		<label key="com.pduleba.jira.action.notification.action.label.1" />
-		<link linkId="notification.action.1">/secure/admin/BannerAction!default.jspa</link>
-	</web-item>
-
-	<web-item key="naId2" name="Notification Action 1" section="system.admin/ct-samples-section" weight="10">
-		<label key="com.pduleba.jira.action.notification.action.label.2" />
-		<link linkId="notification.action.2">/secure/admin/ModifiedBannerAction!default.jspa</link>
-	</web-item>
-
 
 
 </atlassian-plugin>
