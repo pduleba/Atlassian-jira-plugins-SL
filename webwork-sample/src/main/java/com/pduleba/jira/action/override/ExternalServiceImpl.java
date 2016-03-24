@@ -6,7 +6,7 @@ public class ExternalServiceImpl implements ExternalServiceApi {
 
 	@Override
 	public ExternalServiceResult call(Worklog workLog) {
-		return new ExternalServiceResult();
+		return new ExternalServiceResult(workLog);
 	}
 
 }

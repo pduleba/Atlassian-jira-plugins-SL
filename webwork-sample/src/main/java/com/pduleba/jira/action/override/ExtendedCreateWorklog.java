@@ -52,9 +52,6 @@ public class ExtendedCreateWorklog extends CreateWorklog {
     	ExternalServiceResult result = this.externalService.call(this.getWorklog());
     	if (result.isError()) {
     		LOG.error("External service execution error");
-    		// 1. 
-        	addErrorMessage(result.getMessage());
-        	// 2. 
         	return returnMsgToUser(getReturnUrl(), result.getMessage(), MessageType.ERROR, true, null);
     	} else {
     		LOG.info("External service executed successfully");
