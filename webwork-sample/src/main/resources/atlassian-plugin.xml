@@ -4,25 +4,9 @@
 		<description>${project.description}</description>
 		<version>${project.version}</version>
 		<vendor name="${project.organization.name}" url="${project.organization.url}" />
-		<application-version min="3.11" max="4.1" />
 	</plugin-info>
 
-	<resource name="common-18n" type="i18n" location="com.pduleba.jira.action.config" />
-
-	<webwork1 key="success-error-actions" name="SuccessError Actions" class="java.lang.Object">
-		<description>Success Error actions</description>
-		<actions>
-			<action name="com.pduleba.jira.action.custom.ExecuteSuccessAction" alias="ExecuteSuccessAction">
-				<view name="success">/templates/custom/action-result.vm</view>
-				<view name="error">/templates/custom/action-result.vm</view>
-			</action>
-			
-			<action name="com.pduleba.jira.action.custom.ExecuteErrorAction" alias="ExecuteErrorAction">
-				<view name="success">/templates/custom/action-result.vm</view>
-				<view name="error">/templates/custom/action-result.vm</view>
-			</action>
-		</actions>
-	</webwork1>
+	<resource name="common-18n" type="i18n" location="atlassian-plugin" />
 	
 	<webwork1 key="create-worklog-modified" name="Create worklog modified" class="java.lang.Object">
 		<description>Success Error actions</description>
@@ -49,19 +33,6 @@
 	<!-- TRICK : http://www.j-tricks.com/tutorials/component-import-gotchas-nosuchbeandefinitionexception -->
 	<component key="jiraDurationUtils" name="JIRA Duration Utils" class="com.atlassian.jira.util.JiraDurationUtils" />
 
-	<web-section key="ct-samples-section" name="Samples" location="system.admin" weight="110">
-		<description>Available actions in the Admin menu</description>
-		<label key="com.pduleba.jira.actions.admin.menu.label" />
-	</web-section>
-
-	<web-item key="success-action-id" name="ExecuteSuccessAction" section="system.admin/ct-samples-section" weight="10">
-		<label key="com.pduleba.jira.action.success.label" />
-		<link>/secure/ExecuteSuccessAction.jspa</link>
-	</web-item>
-
-	<web-item key="error-action-id" name="ExecuteErrorAction" section="system.admin/ct-samples-section" weight="10">
-		<label key="com.pduleba.jira.action.error.label" />
-		<link>/secure/ExecuteErrorAction.jspa</link>
-	</web-item>
+	<component-import key="jiraDurationUtils" interface="com.atlassian.jira.util.JiraDurationUtils" />
 
 </atlassian-plugin>
