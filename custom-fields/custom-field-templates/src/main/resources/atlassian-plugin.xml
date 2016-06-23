@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+	
+	<plugin-info>
+		<description>${project.description}</description>
+		<version>${project.version}</version>
+		<vendor name="${project.organization.name}" url="${project.organization.url}" />
+		<param name="plugin-icon">images/pluginIcon.png</param>
+		<param name="plugin-logo">images/pluginLogo.png</param>
+	</plugin-info>
+
+	<!-- add our i18n resource -->
+	<resource type="i18n" name="i18n" location="atlassian-plugin" />
+
+	<!-- add our web resources -->
+	<web-resource key="tutorial-jira-custom-field-resources"
+		name="tutorial-jira-custom-field Web Resources">
+
+		<dependency>com.atlassian.auiplugin:ajs</dependency>
+		<resource type="download" name="custom-fields-plugin.css" location="/css/custom-fields-plugin.css" />
+		<resource type="download" name="custom-fields-plugin.js" location="/js/custom-fields-plugin.js" />
+		<resource type="download" name="images/" location="/images" />
+		<context>custom-fields-plugin</context>
+	</web-resource>
+
+	<customfield-type key="${com.pduleba.cf.currency.input.text}"
+			name="Currency Input Text"
+			class="com.pduleba.jira.plugins.fields.currencyinputtext.CurrencyInputTextCFType">
+
+		<description>A configurable currency input text.</description>
+		<resource type="velocity" name="edit" location="templates/com/pduleba/jira/plugins/fields/currencyinputtext/edit.vm" />
+		<resource type="velocity" name="view" location="templates/com/pduleba/jira/plugins/fields/currencyinputtext/view.vm" />
+		<resource type="velocity" name="xml" location="templates/com/pduleba/jira/plugins/fields/currencyinputtext/view.vm" />
+		<resource type="velocity" name="column-view" location="templates/com/pduleba/jira/plugins/fields/currencyinputtext/view.vm" />
+	</customfield-type>
+	
+	<webwork1 key="currency-input-text-configuration" 
+			name="Currency Input Text Configuration"
+			class="java.lang.Object">
+		<description>Currency input text edit configuration action.</description>
+		<actions>
+			<action name="com.pduleba.jira.plugins.fields.currencyinputtext.CurrencyInputTextEditConfigurationAction"
+					alias="CurrencyInputTextEditConfigurationAction">
+				<view name="input">templates/com/pduleba/jira/plugins/fields/currencyinputtext/edit-config.vm</view>
+				<view name="securitybreach">/secure/views/securitybreach.jsp</view>
+			</action>
+		</actions>
+	</webwork1>
+	
+	<customfield-type key="${com.pduleba.cf.creator.output.text}" 
+			name="Creator Output Text"
+			class="com.pduleba.jira.plugins.fields.creatoroutputtext.CreatorOutputTextCFType">
+
+		<description>A creator output text.</description>
+		<resource type="velocity" name="edit" location="templates/com/pduleba/jira/plugins/fields/creatoroutputtext/edit.vm" />
+		<resource type="velocity" name="view" location="templates/com/pduleba/jira/plugins/fields/creatoroutputtext/view.vm" />
+		<resource type="velocity" name="xml" location="templates/com/pduleba/jira/plugins/fields/creatoroutputtext/view.vm" />
+		<resource type="velocity" name="column-view" location="templates/com/pduleba/jira/plugins/fields/creatoroutputtext/view.vm" />
+	</customfield-type>
+
+	<customfield-type key="${com.pduleba.cf.output.text}" 
+			name="Output Text"
+			class="com.pduleba.jira.plugins.fields.outputtext.OutputTextCFType">
+			
+		<description>A output text.</description>
+		<resource type="velocity" name="edit" location="templates/com/pduleba/jira/plugins/fields/outputtext/edit.vm" />
+		<resource type="velocity" name="view" location="templates/com/pduleba/jira/plugins/fields/outputtext/view.vm" />
+		<resource type="velocity" name="xml" location="templates/plugins/fields/xml/xml-basictext.vm" />
+		<resource type="velocity" name="column-view" location="templates/com/pduleba/jira/plugins/fields/outputtext/view.vm" />
+	</customfield-type>
+
+	<customfield-type key="${com.pduleba.cf.input.text}"
+			name="Input Text"
+			class="com.pduleba.jira.plugins.fields.inputtext.InputTextCFType">
+		
+		<description>A Input Text Custom Field Type</description>
+		<resource type="velocity" name="edit" location="templates/com/pduleba/jira/plugins/fields/inputtext/edit.vm" />
+		<resource type="velocity" name="view" location="templates/com/pduleba/jira/plugins/fields/inputtext/view.vm" />
+		<resource type="velocity" name="xml" location="templates/plugins/fields/xml/xml-basictext.vm" />
+		<resource type="velocity" name="column-view" location="templates/com/pduleba/jira/plugins/fields/inputtext/view.vm" />
+		
+		<valid-customfield-type package="com.pduleba.jira.plugins.fields.inputtext" key="input-text" />
+	</customfield-type>
+
+</atlassian-plugin>

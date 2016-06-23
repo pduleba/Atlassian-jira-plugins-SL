@@ -1,0 +1,4 @@
+#customControlHeader ($action $customField.id $customField.name $fieldLayoutItem.required $displayParameters $auiparams)
+<input type="text" name="$customField.id" value="$!value"
+id="$customField.id" class="textfield" />
+#customControlFooter ($action $customField.id $fieldLayoutItem.fieldDescription $displayParameters $auiparams)

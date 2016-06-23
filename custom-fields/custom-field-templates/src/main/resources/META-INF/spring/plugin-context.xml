@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:atlassian-scanner="http://www.atlassian.com/schema/atlassian-scanner"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.atlassian.com/schema/atlassian-scanner http://www.atlassian.com/schema/atlassian-scanner/atlassian-scanner.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+	<atlassian-scanner:scan-indexes />
+	<context:property-placeholder location="classpath:config.properties"/>
+	<context:component-scan base-package="com.pduleba.jira" />
+
+	<bean class="com.pduleba.jira.plugins.spring.SpringContextDebugBean">
+		<property name="schema" >
+			<bean class="com.pduleba.jira.plugins.fields.schema.SchemaCFTypes" >
+				<property name="inputTextKey" 				value="${atlassian.plugin.key}:${com.pduleba.cf.input.text}"/>
+				<property name="outputTextKey" 				value="${atlassian.plugin.key}:${com.pduleba.cf.output.text}"/>
+				<property name="currencyInputTextKey" 		value="${atlassian.plugin.key}:${com.pduleba.cf.currency.input.text}"/>
+				<property name="creatorOutputTextKey" 		value="${atlassian.plugin.key}:${com.pduleba.cf.creator.output.text}"/>
+			</bean>
+		</property>
+	</bean>
+
+</beans>
